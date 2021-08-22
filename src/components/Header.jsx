@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import FilterByName from './FilterByName';
 
 function Header() {
     return (
@@ -8,10 +7,6 @@ function Header() {
             <Link to="/">
                 <i className="fa fa-home header-home"></i>
             </Link>
-            <div className="header-filter">
-                {/* <FilterByName /> */}
-            </div>
-
         </div>
     )
 }
