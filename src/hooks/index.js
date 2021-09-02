@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import omdb from '../api/omdb';
 
-const useMovies = (defaultSearchTerm, id) => {
+const useMovies = (defaultSearchTerm, id, page) => {
     const [movies, setMovies] = useState([]);
+    const [length, setLength] = useState();
     useEffect(() => {
-        const search = async (SearchTerm) => {
+        const search = async (SearchTerm, page) => {
             let params;
             if (!id) {
                 params = {
                     s: SearchTerm,
+                    page,
                     apikey: '1bf6bc58'
                 }
             } else {
@@ -22,14 +24,14 @@ const useMovies = (defaultSearchTerm, id) => {
             });
             if (!id) {
                 setMovies(response.data.Search);
+                setLength(response.data.totalResults);
             } else {
                 setMovies(response.data);
             }
         };
-        search(defaultSearchTerm);
-    }, [defaultSearchTerm, id]);
-
-    return [movies];
+        search(defaultSearchTerm, page);
+    }, [defaultSearchTerm, id, page]);
+    return [movies, length];
 };
 
 export default useMovies;
